@@ -1,0 +1,10 @@
+Django==1.11.4
+django-cors-headers==2.1.0
+django-extra-fields==0.9
+django-geojson==2.10.0
+djangorestframework==3.6.3
+olefile==0.44
+Pillow==4.2.1
+pkg-resources==0.0.0
+pytz==2017.2
+six==1.10.0

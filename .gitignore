@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+
+
+# VirtualEnv
+bin/
+dist/
+lib/
+local/
+share/
+
+# Db
+*.sqlite3
+
+pip-selfcheck.json
