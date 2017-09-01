@@ -19,13 +19,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y^rl=f&c_*=j9w4tw7ow_(%205=#cat46h5fdtvvd(mpt59t*r'
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = ''
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mexico.q123.com.ar',  'localhost']
+ALLOWED_HOSTS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
@@ -93,11 +94,7 @@ MIDDLEWARE = [
 
 ]
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-        'localhost:3002',
-        'hostname.example.com',
-        'http://localhost:3002'
-    )
+CORS_ORIGIN_WHITELIST = ()
 
 ROOT_URLCONF = 'dataleufu.urls'
 
@@ -119,16 +116,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dataleufu.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        'NAME': os.path.join(BASE_DIR, 'dataleufu.sqlite3'),
-    }
-}
 
 SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 # Password validation
@@ -172,3 +159,9 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, '../local_static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
+
+# Look for local settings
+try:
+    from local_settings import *    # noqa
+except ImportError:
+    pass
