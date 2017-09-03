@@ -15,17 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib.gis import admin
-from places.views import place_view, PlaceViewSet
+from places.views import PlaceViewSet, CategoryViewSet, PlacesListAPIView, LayerViewSet
 from rest_framework import routers
+
+
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 router = routers.DefaultRouter()
 router.register(r'api_places', PlaceViewSet)
+router.register(r'api_categories', CategoryViewSet)
+router.register(r'api_layers', LayerViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^places/', place_view, name='places'),
+    url(r'^places/(?P<category_pk>.+)/$', PlacesListAPIView.as_view(), name='places'),
+
+
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

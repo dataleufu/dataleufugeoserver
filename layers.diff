@@ -1,0 +1,219 @@
+diff --git a/dataleufu/settings.py b/dataleufu/settings.py
+index 106e5d1..309df8f 100644
+--- a/dataleufu/settings.py
++++ b/dataleufu/settings.py
+@@ -67,6 +67,7 @@ INSTALLED_APPS = [
+     'django.contrib.gis',
+     'places',
+     'rest_framework',
++    'rest_framework_gis',
+     'corsheaders',
+ ]
+ REST_FRAMEWORK = {
+@@ -158,7 +159,7 @@ STATIC_URL = '/static/'
+ MEDIA_URL = '/media/'
+ 
+ STATIC_ROOT = os.path.join(BASE_DIR, '../local_static/')
+-MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
++MEDIA_ROOT = os.path.join(BASE_DIR, '../local_media/')
+ 
+ # Look for local settings
+ try:
+diff --git a/dataleufu/urls.py b/dataleufu/urls.py
+index 2a03d50..bff3186 100644
+--- a/dataleufu/urls.py
++++ b/dataleufu/urls.py
+@@ -15,17 +15,24 @@ Including another URLconf
+ """
+ from django.conf.urls import url, include
+ from django.contrib.gis import admin
+-from places.views import place_view, PlaceViewSet
++from places.views import PlaceViewSet, CategoryViewSet, PlacesListAPIView, LayerViewSet
+ from rest_framework import routers
++
++
+ from django.conf import settings
+ from django.conf.urls.static import static
+ 
++
+ router = routers.DefaultRouter()
+ router.register(r'api_places', PlaceViewSet)
++router.register(r'api_categories', CategoryViewSet)
++router.register(r'api_layers', LayerViewSet)
+ 
+ urlpatterns = [
+     url(r'^admin/', admin.site.urls),
+-    url(r'^places/', place_view, name='places'),
++    url(r'^places/(?P<category_pk>.+)/$', PlacesListAPIView.as_view(), name='places'),
++
++
+     url(r'^', include(router.urls)),
+     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+ ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+diff --git a/places/admin.py b/places/admin.py
+index 682fc16..4ba3019 100644
+--- a/places/admin.py
++++ b/places/admin.py
+@@ -5,6 +5,8 @@ from django.contrib import admin
+ 
+ # Register your models here.
+ from django.contrib.gis import admin
+-from .models import Place
++from .models import Place, Category, Layer
+ 
+ admin.site.register(Place, admin.GeoModelAdmin)
++admin.site.register(Category, admin.GeoModelAdmin)
++admin.site.register(Layer, admin.GeoModelAdmin)
+diff --git a/places/models.py b/places/models.py
+index 0e55d75..9629029 100644
+--- a/places/models.py
++++ b/places/models.py
+@@ -1,20 +1,51 @@
+ # -*- coding: utf-8 -*-
+ from __future__ import unicode_literals
+-
+ from django.db import models
+-
+-# Create your models here.
+ from django.contrib.gis.db import models
+ 
++
++class Category(models.Model):
++
++    name = models.CharField(max_length=100)
++
++    def __str__(self):
++        return self.name
++
++
+ class Place(models.Model):
+ 
+     point = models.PointField()
+-    title = models.CharField(max_length=100, blank=True, verbose_name=u'título')
++    title = models.CharField(max_length=100, verbose_name=u'título')
+     description = models.CharField(max_length=3000, verbose_name=u'descripción',
+                                    help_text=u'máximo 3000 caracteres')
+     created = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de creación')
+-    image = models.ImageField(blank=True)
++    image = models.ImageField()
++    category = models.ForeignKey(Category, verbose_name=u'categoría',
++                              related_name=u'places')
++
++    def __str__(self):
++        return self.description
++
++
++class Layer(models.Model):
++
++    TYPES = (
++        (1, "Interna"),
++        (2, "Externa"),
++    )
++
++    name = models.CharField(max_length=100, verbose_name=u'título')
++    type = models.IntegerField(choices=TYPES,
++                                  default=TYPES[0], verbose_name=u'tipo de capa')
++    category = models.ForeignKey(Category, verbose_name=u'categoría',
++                              related_name=u'layers', blank=True)
++    url = models.URLField(blank=True, verbose_name=u'Url de la nube de almacenamiento')
++    color = models.CharField(max_length=20, verbose_name=u'color')
++    size = models.IntegerField(verbose_name=u'tamaño en píxeles')
++    visible = models.BooleanField(verbose_name=u'visible al inicio', default=True)
++
++
++
+ 
+-    # Returns the string representation of the model.
+-    def __str__(self):              # __unicode__ on Python 2
+-        return self.description
+\ No newline at end of file
++    def __str__(self):
++        return self.name
+diff --git a/places/serializer.py b/places/serializer.py
+index 81b5e56..e8eccbe 100644
+--- a/places/serializer.py
++++ b/places/serializer.py
+@@ -1,10 +1,23 @@
+-from models import Place
++from models import Place, Category, Layer
+ from rest_framework import serializers
+ from drf_extra_fields.fields import Base64ImageField
+ 
++
++class CategorySerializer(serializers.ModelSerializer):
++
++    class Meta:
++        model = Category
++        fields = ('pk', "name")
++
+ class PlaceSerializer(serializers.ModelSerializer):
+     image = Base64ImageField(required=False)
++
+     class Meta:
+         model = Place
+-        fields = ('pk', "description", "title", "created", "image", "point" )
++        fields = ('pk', "description", "title", "created", "image", "point", "category" )
++
++class LayerSerializer(serializers.ModelSerializer):
+ 
++    class Meta:
++        model = Layer
++        fields = ('pk', "name", "type", "category", "url", "color", "size", "visible")
+diff --git a/places/views.py b/places/views.py
+index c8eb199..04e61f8 100644
+--- a/places/views.py
++++ b/places/views.py
+@@ -6,16 +6,28 @@ from django.shortcuts import render
+ # Create your views here.
+ from django.http import HttpResponse
+ from django.core.serializers import serialize
+-from models import Place
+-
++from models import Place, Category, Layer
++from serializer import PlaceSerializer, CategorySerializer, LayerSerializer
+ from rest_framework import viewsets
+-from serializer import PlaceSerializer
++from rest_framework import generics
++from rest_framework_gis.serializers import GeoFeatureModelSerializer
++from rest_framework_gis.pagination import GeoJsonPagination
++
++
++class GeoPlaceSerializer(GeoFeatureModelSerializer):
++    class Meta:
++        model = Place
++        geo_field = 'point'
++        fields = ('description', 'id', 'category', 'title')
+ 
++class PlacesListAPIView(generics.ListAPIView):
++    serializer_class = GeoPlaceSerializer
++    pagination_class = GeoJsonPagination
++
++    def get_queryset(self):
++        category_pk = self.kwargs['category_pk']
++        return Place.objects.filter(category__pk=category_pk)
+ 
+-def place_view(request):
+-    points_as_geojson = serialize('geojson', Place.objects.all(), fields=('description', 'pk'), geometry_field='point',)
+-    response = HttpResponse(points_as_geojson, content_type='json')
+-    return response
+ 
+ class PlaceViewSet(viewsets.ModelViewSet):
+     """
+@@ -23,3 +35,17 @@ class PlaceViewSet(viewsets.ModelViewSet):
+     """
+     queryset = Place.objects.all()
+     serializer_class = PlaceSerializer
++
++class CategoryViewSet(viewsets.ModelViewSet):
++    """
++    API endpoint that allows users to be viewed or edited.
++    """
++    queryset = Category.objects.all()
++    serializer_class = CategorySerializer
++
++class LayerViewSet(viewsets.ModelViewSet):
++    """
++    API endpoint that allows users to be viewed or edited.
++    """
++    queryset = Layer.objects.all()
++    serializer_class = LayerSerializer
