@@ -6,16 +6,28 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.core.serializers import serialize
-from models import Place
-
+from models import Place, Category, Layer
+from serializer import PlaceSerializer, CategorySerializer, LayerSerializer
 from rest_framework import viewsets
-from serializer import PlaceSerializer
+from rest_framework import generics
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
+from rest_framework_gis.pagination import GeoJsonPagination
 
 
-def place_view(request):
-    points_as_geojson = serialize('geojson', Place.objects.all(), fields=('description', 'pk'), geometry_field='point',)
-    response = HttpResponse(points_as_geojson, content_type='json')
-    return response
+class GeoPlaceSerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = Place
+        geo_field = 'point'
+        fields = ('description', 'id', 'category', 'title')
+
+class PlacesListAPIView(generics.ListAPIView):
+    serializer_class = GeoPlaceSerializer
+    pagination_class = GeoJsonPagination
+
+    def get_queryset(self):
+        category_pk = self.kwargs['category_pk']
+        return Place.objects.filter(category__pk=category_pk)
+
 
 class PlaceViewSet(viewsets.ModelViewSet):
     """
@@ -23,3 +35,17 @@ class PlaceViewSet(viewsets.ModelViewSet):
     """
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class LayerViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Layer.objects.all()
+    serializer_class = LayerSerializer
