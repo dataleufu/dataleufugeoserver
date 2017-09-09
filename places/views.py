@@ -20,9 +20,12 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
         geo_field = 'point'
         fields = ('description', 'id', 'category', 'title')
 
+class PlacesPagination(GeoJsonPagination):
+    page_size = 10000
+
 class PlacesListAPIView(generics.ListAPIView):
     serializer_class = GeoPlaceSerializer
-   # pagination_class = GeoJsonPagination
+    pagination_class = PlacesPagination
 
     def get_queryset(self):
         category_pk = self.kwargs['category_pk']
