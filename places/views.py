@@ -22,7 +22,7 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
 
 class PlacesListAPIView(generics.ListAPIView):
     serializer_class = GeoPlaceSerializer
-    pagination_class = GeoJsonPagination
+   # pagination_class = GeoJsonPagination
 
     def get_queryset(self):
         category_pk = self.kwargs['category_pk']
