@@ -8,8 +8,12 @@ class Category(models.Model):
 
     name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        verbose_name = u'categoría'
+        verbose_name_plural = u'categorías'
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 class Place(models.Model):
@@ -23,9 +27,17 @@ class Place(models.Model):
     category = models.ForeignKey(Category, verbose_name=u'categoría',
                               related_name=u'places')
 
-    def __str__(self):
-        return self.description
 
+    class Meta:
+        verbose_name = u'punto'
+        verbose_name_plural = u'puntos'
+
+    def __unicode__(self):
+        return unicode('%s: %s' % (self.category.name, self.short_description))
+
+    @property
+    def short_description(self):
+        return self.description[:20]
 
 class Layer(models.Model):
 
@@ -44,8 +56,9 @@ class Layer(models.Model):
     size = models.IntegerField(verbose_name=u'tamaño en píxeles')
     visible = models.BooleanField(verbose_name=u'visible al inicio', default=True)
 
+    class Meta:
+        verbose_name = u'capa'
+        verbose_name_plural = u'capas'
 
-
-
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return unicode(self.name)
