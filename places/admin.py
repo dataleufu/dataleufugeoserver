@@ -7,6 +7,18 @@ from django.contrib import admin
 from django.contrib.gis import admin
 from .models import Place, Category, Layer
 
-admin.site.register(Place, admin.GeoModelAdmin)
+class LayerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'color', 'size', 'visible')
+    ordering = ('name', )
+    list_filter = ('category', )
+
+
+class PlaceAdmin(admin.ModelAdmin):
+
+    list_display = ('short_description', 'category', 'created', 'point')
+    ordering = ('created', )
+    list_filter = ('category', )
+
+admin.site.register(Place, PlaceAdmin)
 admin.site.register(Category, admin.GeoModelAdmin)
-admin.site.register(Layer, admin.GeoModelAdmin)
+admin.site.register(Layer, LayerAdmin)
