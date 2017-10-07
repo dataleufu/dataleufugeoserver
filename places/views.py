@@ -8,11 +8,10 @@ from django.http import HttpResponse
 from django.core.serializers import serialize
 from models import Place, Category, Layer
 from serializer import PlaceSerializer, CategorySerializer, LayerSerializer
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.pagination import GeoJsonPagination
-from rest_framework.response import Response
 
 
 class GeoPlaceSerializer(GeoFeatureModelSerializer):
