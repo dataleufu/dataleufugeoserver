@@ -1,0 +1,210 @@
+diff --git a/dataleufu/settings.py b/dataleufu/settings.py
+index 309df8f..d1bd6af 100644
+--- a/dataleufu/settings.py
++++ b/dataleufu/settings.py
+@@ -161,6 +161,49 @@ MEDIA_URL = '/media/'
+ STATIC_ROOT = os.path.join(BASE_DIR, '../local_static/')
+ MEDIA_ROOT = os.path.join(BASE_DIR, '../local_media/')
+ 
++# A sample logging configuration. The only tangible logging
++# performed by this configuration is to send an email to
++# the site admins on every HTTP 500 error when DEBUG=False.
++# See http://docs.djangoproject.com/en/dev/topics/logging for
++# more details on how to customize your logging configuration.
++LOGGING = {
++    'version': 1,
++    'disable_existing_loggers': False,
++    'filters': {
++        'require_debug_false': {
++            '()': 'django.utils.log.RequireDebugFalse'
++        }
++    },
++    'handlers': {
++
++        'file': {
++            'level': 'DEBUG',
++            'class': 'logging.FileHandler',
++            'filename': 'djangoserver.log',
++            'formatter': 'default',
++        },
++        'console': {
++            'level': 'DEBUG',
++            'class': 'logging.StreamHandler',
++            'formatter': 'default',
++
++        },
++
++    },
++    'loggers': {
++        'django.request': {
++            'handlers': ['console', 'file'],
++            'level': 'DEBUG',
++            'propagate': True,
++        }
++    },
++    'formatters': {
++         'default': {
++            'format': '%(asctime)s %(levelname)-8s %(message)s',
++        },
++    }
++}
++
+ # Look for local settings
+ try:
+     from local_settings import *    # noqa
+diff --git a/places/admin.py b/places/admin.py
+index eb2c7e1..16e5a19 100644
+--- a/places/admin.py
++++ b/places/admin.py
+@@ -5,7 +5,7 @@ from django.contrib import admin
+ 
+ # Register your models here.
+ from django.contrib.gis import admin
+-from .models import Place, Category, Layer
++from .models import Place, Category, Layer, PlaceImage
+ 
+ class LayerAdmin(admin.ModelAdmin):
+     list_display = ('name', 'category', 'color', 'size', 'visible')
+@@ -13,11 +13,18 @@ class LayerAdmin(admin.ModelAdmin):
+     list_filter = ('category', )
+ 
+ 
++class PlaceImageInline(admin.TabularInline):
++    model = PlaceImage
++    extra = 3
++
++
+ class PlaceAdmin(admin.ModelAdmin):
+ 
+     list_display = ('short_description', 'category', 'created', 'point')
+     ordering = ('created', )
+     list_filter = ('category', )
++    inlines = [ PlaceImageInline, ]
++
+ 
+ admin.site.register(Place, PlaceAdmin)
+ admin.site.register(Category, admin.GeoModelAdmin)
+diff --git a/places/models.py b/places/models.py
+index a3edd30..297bf5c 100644
+--- a/places/models.py
++++ b/places/models.py
+@@ -23,7 +23,6 @@ class Place(models.Model):
+     description = models.CharField(max_length=3000, verbose_name=u'descripción',
+                                    help_text=u'máximo 3000 caracteres')
+     created = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de creación')
+-    image = models.ImageField()
+     category = models.ForeignKey(Category, verbose_name=u'categoría',
+                               related_name=u'places')
+ 
+@@ -32,6 +31,7 @@ class Place(models.Model):
+         verbose_name = u'punto'
+         verbose_name_plural = u'puntos'
+ 
++
+     def __unicode__(self):
+         return unicode('%s: %s' % (self.category.name, self.short_description))
+ 
+@@ -39,6 +39,12 @@ class Place(models.Model):
+     def short_description(self):
+         return self.description[:20]
+ 
++
++class PlaceImage(models.Model):
++    image = models.ImageField()
++    place = models.ForeignKey(Place, related_name='images')
++
++
+ class Layer(models.Model):
+ 
+     TYPES = (
+diff --git a/places/serializer.py b/places/serializer.py
+index e8eccbe..e3b73d4 100644
+--- a/places/serializer.py
++++ b/places/serializer.py
+@@ -1,6 +1,8 @@
+-from models import Place, Category, Layer
++from models import Place, Category, Layer, PlaceImage
+ from rest_framework import serializers
+ from drf_extra_fields.fields import Base64ImageField
++from django.core.files.base import ContentFile
++import base64
+ 
+ 
+ class CategorySerializer(serializers.ModelSerializer):
+@@ -9,12 +11,29 @@ class CategorySerializer(serializers.ModelSerializer):
+         model = Category
+         fields = ('pk', "name")
+ 
+-class PlaceSerializer(serializers.ModelSerializer):
++
++class PlaceImageSerializar(serializers.ModelSerializer):
+     image = Base64ImageField(required=False)
+ 
+     class Meta:
++        model = PlaceImage
++        fields = ('pk', "image" )
++
++
++class PlaceSerializer(serializers.ModelSerializer):
++    images = PlaceImageSerializar(many=True, read_only=False)
++
++    class Meta:
+         model = Place
+-        fields = ('pk', "description", "title", "created", "image", "point", "category" )
++        fields = ('pk', "description", "title", "created", "images", "point", "category" )
++
++    def create(self, validated_data):
++        images_data = validated_data.pop('images')
++        place = Place.objects.create(**validated_data)
++        for image_data in images_data:
++            PlaceImage.objects.create(place=place, **image_data)
++        return place
++
+ 
+ class LayerSerializer(serializers.ModelSerializer):
+ 
+diff --git a/places/views.py b/places/views.py
+index 12d9a0c..868241d 100644
+--- a/places/views.py
++++ b/places/views.py
+@@ -8,10 +8,11 @@ from django.http import HttpResponse
+ from django.core.serializers import serialize
+ from models import Place, Category, Layer
+ from serializer import PlaceSerializer, CategorySerializer, LayerSerializer
+-from rest_framework import viewsets
++from rest_framework import viewsets, status
+ from rest_framework import generics
+ from rest_framework_gis.serializers import GeoFeatureModelSerializer
+ from rest_framework_gis.pagination import GeoJsonPagination
++from rest_framework.response import Response
+ 
+ 
+ class GeoPlaceSerializer(GeoFeatureModelSerializer):
+@@ -20,9 +21,11 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
+         geo_field = 'point'
+         fields = ('description', 'id', 'category', 'title')
+ 
++
+ class PlacesPagination(GeoJsonPagination):
+     page_size = 10000
+ 
++
+ class PlacesListAPIView(generics.ListAPIView):
+     serializer_class = GeoPlaceSerializer
+     pagination_class = PlacesPagination
+@@ -39,6 +42,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
+     queryset = Place.objects.all()
+     serializer_class = PlaceSerializer
+ 
++
+ class CategoryViewSet(viewsets.ModelViewSet):
+     """
+     API endpoint that allows users to be viewed or edited.
+@@ -46,6 +50,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
+     queryset = Category.objects.all()
+     serializer_class = CategorySerializer
+ 
++
+ class LayerViewSet(viewsets.ModelViewSet):
+     """
+     API endpoint that allows users to be viewed or edited.

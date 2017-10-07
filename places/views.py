@@ -8,10 +8,11 @@ from django.http import HttpResponse
 from django.core.serializers import serialize
 from models import Place, Category, Layer
 from serializer import PlaceSerializer, CategorySerializer, LayerSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework import generics
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.pagination import GeoJsonPagination
+from rest_framework.response import Response
 
 
 class GeoPlaceSerializer(GeoFeatureModelSerializer):
@@ -20,8 +21,10 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
         geo_field = 'point'
         fields = ('description', 'id', 'category', 'title')
 
+
 class PlacesPagination(GeoJsonPagination):
     page_size = 10000
+
 
 class PlacesListAPIView(generics.ListAPIView):
     serializer_class = GeoPlaceSerializer
@@ -39,12 +42,14 @@ class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
 
+
 class CategoryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
 
 class LayerViewSet(viewsets.ModelViewSet):
     """

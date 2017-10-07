@@ -23,7 +23,6 @@ class Place(models.Model):
     description = models.CharField(max_length=3000, verbose_name=u'descripción',
                                    help_text=u'máximo 3000 caracteres')
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de creación')
-    image = models.ImageField()
     category = models.ForeignKey(Category, verbose_name=u'categoría',
                               related_name=u'places')
 
@@ -32,12 +31,19 @@ class Place(models.Model):
         verbose_name = u'punto'
         verbose_name_plural = u'puntos'
 
+
     def __unicode__(self):
         return unicode('%s: %s' % (self.category.name, self.short_description))
 
     @property
     def short_description(self):
         return self.description[:20]
+
+
+class PlaceImage(models.Model):
+    image = models.ImageField()
+    place = models.ForeignKey(Place, related_name='images')
+
 
 class Layer(models.Model):
 

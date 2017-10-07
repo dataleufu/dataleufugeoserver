@@ -1,0 +1,447 @@
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(viewsets.ModelViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 21, in to_internal_value
+    return serializers.PrimaryKeyRelatedField.to_internal_value(self, data)
+TypeError: unbound method to_internal_value() must be called with PrimaryKeyRelatedField instance as first argument (got PlaceImageSerializar instance instead)
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(viewsets.ModelViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 21, in to_internal_value
+    return serializers.PrimaryKeyRelatedField.to_internal_value(serializers.PrimaryKeyRelatedField, data)
+TypeError: unbound method to_internal_value() must be called with PrimaryKeyRelatedField instance as first argument (got type instance instead)
+Not Found: /api_places/NaN/
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(PlaceViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 50, in to_internal_value
+    validated_data = super(PlaceSerializer, self).to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 27, in to_internal_value
+    data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+NameError: global name 'ContentFile' is not defined
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(PlaceViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 50, in to_internal_value
+    validated_data = super(PlaceSerializer, self).to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 27, in to_internal_value
+    data = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+NameError: global name 'base64' is not defined
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(PlaceViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 53, in to_internal_value
+    validated_data = super(PlaceSerializer, self).to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 32, in to_internal_value
+    return super(Base64ImageField, self).to_internal_value(data)
+TypeError: super(type, obj): obj must be an instance or subtype of type
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(PlaceViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 53, in to_internal_value
+    validated_data = super(PlaceSerializer, self).to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 32, in to_internal_value
+    return super(Base64ImageField, self).to_internal_value(data)
+TypeError: super(type, obj): obj must be an instance or subtype of type
+Internal Server Error: /api_places/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/viewsets.py", line 86, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 46, in create
+    ret = super(PlaceViewSet, self).create(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 20, in create
+    serializer.is_valid(raise_exception=True)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 237, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 53, in to_internal_value
+    validated_data = super(PlaceSerializer, self).to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 462, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 597, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 636, in to_internal_value
+    validated = self.child.run_validation(item)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/serializers.py", line 432, in run_validation
+    value = self.to_internal_value(data)
+  File "/home/milena/repo/dataleufu/geoserver/places/serializer.py", line 32, in to_internal_value
+    return super(Base64ImageField, self).to_internal_value(data)
+TypeError: super(type, obj): obj must be an instance or subtype of type
+2017-10-07 12:36:34,893 WARNING  Not Found: /favicon.ico
+2017-10-07 13:00:32,918 WARNING  Not Found: /adminmin
+2017-10-07 13:04:46,490 ERROR    Internal Server Error: /places/18/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:46,499 ERROR    Internal Server Error: /places/19/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:46,575 ERROR    Internal Server Error: /places/20/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:46,642 ERROR    Internal Server Error: /places/21/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:46,669 ERROR    Internal Server Error: /places/23/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:46,691 ERROR    Internal Server Error: /places/22/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
+2017-10-07 13:04:47,011 ERROR    Internal Server Error: /places/24/
+Traceback (most recent call last):
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/decorators/csrf.py", line 58, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/django/views/generic/base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 489, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 449, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/views.py", line 486, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/generics.py", line 201, in get
+    return self.list(request, *args, **kwargs)
+  File "/home/milena/repo/dataleufu/geoserver/local/lib/python2.7/site-packages/rest_framework/mixins.py", line 40, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/home/milena/repo/dataleufu/geoserver/places/views.py", line 31, in get_queryset
+    1/0
+ZeroDivisionError: integer division or modulo by zero
