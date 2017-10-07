@@ -161,6 +161,49 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, '../local_static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, '../local_media/')
 
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error when DEBUG=False.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'djangoserver.log',
+            'formatter': 'default',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+
+        },
+
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    },
+    'formatters': {
+         'default': {
+            'format': '%(asctime)s %(levelname)-8s %(message)s',
+        },
+    }
+}
+
 # Look for local settings
 try:
     from local_settings import *    # noqa

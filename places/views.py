@@ -20,8 +20,10 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
         geo_field = 'point'
         fields = ('description', 'id', 'category', 'title')
 
+
 class PlacesPagination(GeoJsonPagination):
     page_size = 10000
+
 
 class PlacesListAPIView(generics.ListAPIView):
     serializer_class = GeoPlaceSerializer
@@ -39,12 +41,14 @@ class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
 
+
 class CategoryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
 
 class LayerViewSet(viewsets.ModelViewSet):
     """
