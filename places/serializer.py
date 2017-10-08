@@ -25,7 +25,7 @@ class PlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-        fields = ('pk', "description", "title", "created", "images", "point", "category" )
+        fields = ('pk', "description", "created", "images", "point", "category" )
 
     def create(self, validated_data):
         images_data = validated_data.pop('images')

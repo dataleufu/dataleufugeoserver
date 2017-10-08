@@ -19,7 +19,7 @@ class GeoPlaceSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Place
         geo_field = 'point'
-        fields = ('description', 'id', 'category', 'title')
+        fields = ('description', 'id', 'category')
 
 
 class PlacesPagination(GeoJsonPagination):

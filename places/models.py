@@ -19,7 +19,6 @@ class Category(models.Model):
 class Place(models.Model):
 
     point = models.PointField()
-    title = models.CharField(max_length=100, verbose_name=u'título')
     description = models.CharField(max_length=3000, verbose_name=u'descripción',
                                    help_text=u'máximo 3000 caracteres')
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de creación')
