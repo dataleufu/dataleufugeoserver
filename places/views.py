@@ -12,6 +12,7 @@ from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.pagination import GeoJsonPagination
+from rest_framework import permissions
 
 
 class GeoPlaceSerializer(GeoFeatureModelSerializer):
@@ -28,6 +29,7 @@ class PlacesPagination(GeoJsonPagination):
 class PlacesListAPIView(generics.ListAPIView):
     serializer_class = GeoPlaceSerializer
     pagination_class = PlacesPagination
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
         category_pk = self.kwargs['category_pk']
@@ -40,6 +42,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
     """
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -48,6 +51,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class LayerViewSet(viewsets.ModelViewSet):
@@ -56,3 +60,4 @@ class LayerViewSet(viewsets.ModelViewSet):
     """
     queryset = Layer.objects.all()
     serializer_class = LayerSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib.gis import admin
 from places.views import PlaceViewSet, CategoryViewSet, PlacesListAPIView, LayerViewSet
+from .views import UserGroupViewSet, UserProfileViewSet, LoginView, UserViewSet, ResetPasswordView, \
+    FacebookLoginView, FacebookSignupView
 from rest_framework import routers
 
 
@@ -27,12 +29,20 @@ router = routers.DefaultRouter()
 router.register(r'api_places', PlaceViewSet)
 router.register(r'api_categories', CategoryViewSet)
 router.register(r'api_layers', LayerViewSet)
-
+router.register(r'api_user_group', UserGroupViewSet)
+router.register(r'api_user_profile', UserProfileViewSet)
+router.register(r'api_register', UserViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^places/(?P<category_pk>.+)/$', PlacesListAPIView.as_view(), name='places'),
 
 
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api_login', LoginView.as_view(), name="api_login"),
+    url(r'^api/reset-password', ResetPasswordView.as_view(), name="reset-password"),
+    url(r'^api/sociallogin/login/facebook', FacebookLoginView.as_view(), name="facebook-login"),
+    url(r'^api/sociallogin/signup/facebook', FacebookSignupView.as_view(), name="facebook-signup"),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

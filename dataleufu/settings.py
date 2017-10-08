@@ -33,6 +33,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+SITE_ID = 1 #allauth
+
 CORS_ALLOW_HEADERS = (
     'x-requested-with',
     'content-type',
@@ -65,19 +67,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'dataleufu',
     'places',
     'rest_framework',
     'rest_framework_gis',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-         'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
+        'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
 
     ),
     'PAGE_SIZE': 10
@@ -114,6 +123,15 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 WSGI_APPLICATION = 'dataleufu.wsgi.application'
 
@@ -204,6 +222,13 @@ LOGGING = {
     }
 }
 
+
+# Allauth settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = False
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # Look for local settings
 try:
     from local_settings import *    # noqa
