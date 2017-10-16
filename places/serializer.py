@@ -3,6 +3,7 @@ from rest_framework import serializers
 from drf_extra_fields.fields import Base64ImageField
 from django.core.files.base import ContentFile
 import base64
+from dataleufu.serializer import UserProfileSerializer
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -22,10 +23,11 @@ class PlaceImageSerializar(serializers.ModelSerializer):
 
 class PlaceSerializer(serializers.ModelSerializer):
     images = PlaceImageSerializar(many=True, read_only=False)
+    owner = UserProfileSerializer(required=False)
 
     class Meta:
         model = Place
-        fields = ('pk', "description", "created", "images", "point", "category" )
+        fields = ('pk', "description", "created", "images", "point", "category", "owner" )
 
     def create(self, validated_data):
         images_data = validated_data.pop('images')
