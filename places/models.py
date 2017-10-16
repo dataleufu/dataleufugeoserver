@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.gis.db import models
+from dataleufu.models import UserProfile
 
 
 class Category(models.Model):
@@ -24,6 +25,7 @@ class Place(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'fecha de creación')
     category = models.ForeignKey(Category, verbose_name=u'categoría',
                               related_name=u'places')
+    owner = models.ForeignKey(UserProfile, related_name=u'places')
 
 
     class Meta:

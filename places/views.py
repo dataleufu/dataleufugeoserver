@@ -13,6 +13,7 @@ from rest_framework import generics
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.pagination import GeoJsonPagination
 from rest_framework import permissions
+from dataleufu.models import UserProfile
 
 
 class GeoPlaceSerializer(GeoFeatureModelSerializer):
@@ -43,6 +44,9 @@ class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=UserProfile.objects.get(pk=self.request.user.pk))
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
