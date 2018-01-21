@@ -38,6 +38,7 @@ class PlaceSerializer(serializers.ModelSerializer):
 
 
 class LayerSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(required=False)
 
     class Meta:
         model = Layer

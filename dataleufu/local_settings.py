@@ -10,9 +10,13 @@ SECRET_KEY = 'y^rl=f&c_*=j9w4tw7ow_(%205=#cat46h5fdtvvd(mpt59t*r'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DATABASES = {
-    'default': {
+    '__default': {
         'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         'NAME': os.path.join(BASE_DIR, 'dataleufu.sqlite3'),
+    },
+     'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME':'dataleufu',
     }
 }
 
