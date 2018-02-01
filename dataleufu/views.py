@@ -26,6 +26,11 @@ from allauth.socialaccount.forms import SignupForm
 from allauth.socialaccount.models import SocialLogin, SocialToken, SocialApp
 from allauth.socialaccount.providers.facebook.views import fb_complete_login
 from allauth.account.forms import ResetPasswordForm
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     """

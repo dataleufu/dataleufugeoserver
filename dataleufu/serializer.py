@@ -7,6 +7,10 @@ from drf_extra_fields.fields import Base64ImageField
 from django.core.files.base import ContentFile
 from django.core.validators import RegexValidator
 import base64
+from rest_auth.serializers import TokenSerializer, LoginSerializer
+
+from rest_framework.authtoken.models import Token
+
 
 
 class CaseInsensitiveUniqueField(validators.UniqueValidator):
@@ -65,3 +69,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('user', 'description', 'group', 'image')
 
+class TokenSerializer(serializers.ModelSerializer):
+    user_profile = serializers.SerializerMethodField('make_user_profile')
+
+    def make_user_profile(self, foo):
+        return UserProfileSerializer().to_representation(UserProfile.objects.get(pk=foo.user))
+
+    class Meta:
+        model = Token
+        fields = ('key', 'user', 'user_profile')
