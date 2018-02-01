@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib.gis import admin
 from places.views import PlaceViewSet, CategoryViewSet, PlacesListAPIView, LayerViewSet
 from .views import UserGroupViewSet, UserProfileViewSet, LoginView, UserViewSet, ResetPasswordView, \
-    FacebookLoginView, FacebookSignupView
+    FacebookLoginView, FacebookSignupView, FacebookLogin
 from rest_framework import routers
 
 
@@ -35,7 +35,11 @@ router.register(r'api_register', UserViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^places/(?P<category_pk>.+)/$', PlacesListAPIView.as_view(), name='places'),
+    url(r'^rest-auth/', include('rest_auth.urls')),
 
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
+    url(r'^accounts/', include('allauth.urls'), name='socialaccount_signup'),
 
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

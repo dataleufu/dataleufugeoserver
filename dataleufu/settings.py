@@ -78,6 +78,14 @@ INSTALLED_APPS = [
     'rest_framework_gis',
     'rest_framework.authtoken',
     'corsheaders',
+    'rest_auth',
+    #registration
+
+    'rest_auth.registration',
+    #Social Authentication
+
+
+
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -144,15 +152,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#    },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#    },
 ]
 
 
@@ -227,8 +235,39 @@ LOGGING = {
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = False
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
+ACCOUNT_UNIQUE_EMAIL = False
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'
+    }
+}
+REST_AUTH_SERIALIZERS = {
+
+    'TOKEN_SERIALIZER': 'dataleufu.serializer.TokenSerializer',
+
+}
+
+
+#ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # Look for local settings
 try:
     from local_settings import *    # noqa
