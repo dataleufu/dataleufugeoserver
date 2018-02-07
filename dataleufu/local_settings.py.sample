@@ -27,3 +27,19 @@ CORS_ORIGIN_WHITELIST = (
         'hostname.example.com',
         'http://localhost:3002'
     )
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'radarleufu'
+EMAIL_HOST_PASSWORD = 'xxx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# Facebook configuration
+SOCIAL_AUTH_FACEBOOK_KEY = 'zzz'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'yyy'
+
+LOGIN_REDIRECT_URL = "http://mexico.q123.com.ar:3000"
+WEB_APP_BASE_URL = 'http://mexico.q123.com.ar:3000'
+ADMIN_URL = 'http://mexico.q123.com.ar:8000'
+CONTACT_EMAIL = 'contacto@radarleufu.com'
+LOGIN_URL = 'http://mexico.q123.com.ar:3000'

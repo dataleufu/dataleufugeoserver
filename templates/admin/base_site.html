@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% load templatetags %}
+{% settings_value "WEB_APP_BASE_URL" as a%}
+{% settings_value "ADMIN_URL" %}
+{% block title %}{{ title }} | {{ site_title|default:_('RadarLeufú') }}{% endblock %}
+
+{% block branding %}
+
+
+
+<h1 id="site-name"><a href="{% url 'admin:index' %}"> {%settings_value "WEB_APP_BASE_URL"%} b s{{ site_header|default:_('RadarLeufú') }}</a></h1>
+
+<H1>a {{WEB_APP_BASE_URL}}</H1>
+<H1>b {{ADMIN_URL}}</H1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

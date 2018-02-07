@@ -31,7 +31,7 @@ router.register(r'api_categories', CategoryViewSet)
 router.register(r'api_layers', LayerViewSet)
 router.register(r'api_user_group', UserGroupViewSet)
 router.register(r'api_user_profile', UserProfileViewSet)
-router.register(r'api_register', UserViewSet)
+#router.register(r'api_register', UserViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^places/(?P<category_pk>.+)/$', PlacesListAPIView.as_view(), name='places'),
@@ -40,13 +40,14 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
     url(r'^accounts/', include('allauth.urls'), name='socialaccount_signup'),
+    url(r'^', include('django.contrib.auth.urls')), #necesario para el password reset
 
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api_login', LoginView.as_view(), name="api_login"),
-    url(r'^api/reset-password', ResetPasswordView.as_view(), name="reset-password"),
-    url(r'^api/sociallogin/login/facebook', FacebookLoginView.as_view(), name="facebook-login"),
-    url(r'^api/sociallogin/signup/facebook', FacebookSignupView.as_view(), name="facebook-signup"),
+#    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+#    url(r'^api_login', LoginView.as_view(), name="api_login"),
+#    url(r'^api/reset-password', ResetPasswordView.as_view(), name="reset-password"),
+#    url(r'^api/sociallogin/login/facebook', FacebookLoginView.as_view(), name="facebook-login"),
+#    url(r'^api/sociallogin/signup/facebook', FacebookSignupView.as_view(), name="facebook-signup"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
