@@ -66,20 +66,20 @@ class AccountTests(APITestCase):
 
         print "Respuesta api_user_profile", response
 
-    def test_facebook_auth(self):
-        s = SocialApp.objects.create(provider='facebook', name='facebook', client_id='1947080825564588', secret='bf74bdc2f7063c1884ab02e6a895b07d')
-        s.sites = [Site.objects.all()[0]]
-        s.save()
+#    def test_facebook_auth(self):
+#        s = SocialApp.objects.create(provider='facebook', name='facebook', client_id='1947080825564588', secret='bf74bdc2f7063c1884ab02e6a895b07d')
+#        s.sites = [Site.objects.all()[0]]
+#        s.save()
 
-        url = '/rest-auth/facebook/'
-        #Token de un usuario de prueba creado en Facebook
-        data = {'access_token': 'EAAbq3BT07awBAGDZBCZBZAXR21R15SZCUGEJ44scMs3rkJZAueLvtYpHl0wM8s5ZAuywazIeR2FpYfLi3ekH6VKgqK4AEJehapjyOyD39ZAT73hASlm3ZASZCagC6FbNzhDT4NAjm7sxnbbItGo00A8HbWWbhkMQ5ZBr67NZCtt8nP5VQbiW83uj6zkjq25CH2voi52rZANmZB36P17SBlZAWXaNS7Y5RdHsqRXTZCdD75DLn81PQZDZD'}
+#        url = '/rest-auth/facebook/'
+#        #Token de un usuario de prueba creado en Facebook
+#        data = {'access_token': 'EAAbq3BT07awBAGDZBCZBZAXR21R15SZCUGEJ44scMs3rkJZAueLvtYpHl0wM8s5ZAuywazIeR2FpYfLi3ekH6VKgqK4AEJehapjyOyD39ZAT73hASlm3ZASZCagC6FbNzhDT4NAjm7sxnbbItGo00A8HbWWbhkMQ5ZBr67NZCtt8nP5VQbiW83uj6zkjq25CH2voi52rZANmZB36P17SBlZAWXaNS7Y5RdHsqRXTZCdD75DLn81PQZDZD'}
 
-        response = self.client.post(url, data, format='json')
-        print "Respuesta test_facebook_auth", response
+#        response = self.client.post(url, data, format='json')
+#        print "Respuesta test_facebook_auth", response
 
-        #En el registro se crea el profile
-        self.assertEqual(UserProfile.objects.count(), 1)
+#        #En el registro se crea el profile
+#        self.assertEqual(UserProfile.objects.count(), 1)
 
-        #Se crea un usuario
-        self.assertEqual(UserProfile.objects.all()[0].pk, response.data.get('user'))
+#        #Se crea un usuario
+#        self.assertEqual(UserProfile.objects.all()[0].pk, response.data.get('user'))

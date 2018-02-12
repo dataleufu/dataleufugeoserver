@@ -1,3 +1,4 @@
+# -*- coding: iso-8859-1 -*-
 from models import Place, Category, Layer, PlaceImage
 from rest_framework import serializers
 from drf_extra_fields.fields import Base64ImageField

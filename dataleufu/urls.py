@@ -44,7 +44,7 @@ urlpatterns = [
 
     url(r'^', include(router.urls)),
 #    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-#    url(r'^api_login', LoginView.as_view(), name="api_login"),
+    url(r'^api_login', LoginView.as_view(), name="api_login"),
 #    url(r'^api/reset-password', ResetPasswordView.as_view(), name="reset-password"),
 #    url(r'^api/sociallogin/login/facebook', FacebookLoginView.as_view(), name="facebook-login"),
 #    url(r'^api/sociallogin/signup/facebook', FacebookSignupView.as_view(), name="facebook-signup"),
