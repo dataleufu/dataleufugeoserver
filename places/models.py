@@ -43,7 +43,9 @@ class Place(models.Model):
     @property
     def image(self):
         if self.images:
-            return PlaceImage.objects.filter(place=self)[0].get_image_url
+            images = PlaceImage.objects.filter(place=self)
+            if images:
+                return images[0].get_image_url
 
 
 class PlaceImage(models.Model):
