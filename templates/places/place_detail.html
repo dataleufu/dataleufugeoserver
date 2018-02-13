@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+    {% block head_title %}
+        RadarLeufú {{object.category.name}}
+    {% endblock %}
+    {% block extra_head %}
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <meta name="alexaVerifyID" content="VnZ_Et-Jpg6HoBQRuWYP1dYWaa0"/>
+        <meta property="fb:app_id" content="471603786214644"/>
+        <meta property="og:site_name" content="RadarLeufú"/>
+
+        <meta property="og:image" content="https://geoserver.radarleufu.com{{object.image}}"/>
+        <meta property="og:title" content="{{object.category.name}} - {{object.description}}"/>
+        <meta property="og:url" content="https://radarleufu.com/map/{{object.pk}}"/>
+        <meta property="og:description" content="{{object.description}}"/>
+        <meta property="article:publisher" content="RadarLeufú"/>
+
+        <meta name="description" content="{{object.category.name}} - {{object.description}}">
+        <meta name="keywords"  content="{{object.category.name}}, RadarLeufú, Río Negro">
+
+        <meta property="twitter:creator" content="RadarLeufú"/>
+
+        <meta property="twitter:title" content="{{object.category.name}} - {{object.description}}">
+        <meta property="twitter:description" content="RadarLeufú || {{object.description}}">
+        <meta property="twitter:image" content="https://geoserver.radarleufu.com{{object.image}}"/>
+    {% endblock %}
+
+</html>
+<body>
+{% block content %}
+
+    <h3>{{ object.category.name }}</h3>
+      <p>{{ object.description }}</p>
+
+
+{% endblock %}
+</body>

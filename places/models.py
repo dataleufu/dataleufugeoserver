@@ -40,11 +40,19 @@ class Place(models.Model):
     def short_description(self):
         return self.description[:20]
 
+    @property
+    def image(self):
+        if self.images:
+            return PlaceImage.objects.filter(place=self)[0].get_image_url
+
 
 class PlaceImage(models.Model):
     image = models.ImageField()
     place = models.ForeignKey(Place, related_name='images')
 
+    @property
+    def get_image_url(self):
+        return self.image.url
 
 class Layer(models.Model):
 

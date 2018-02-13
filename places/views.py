@@ -14,6 +14,10 @@ from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from rest_framework_gis.pagination import GeoJsonPagination
 from rest_framework import permissions
 from dataleufu.models import UserProfile
+from django.views import generic
+
+class PlaceDetailView(generic.DetailView):
+    model = Place
 
 
 class GeoPlaceSerializer(GeoFeatureModelSerializer):
