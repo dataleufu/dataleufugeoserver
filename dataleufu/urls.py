@@ -23,7 +23,7 @@ from rest_framework import routers
 
 from django.conf import settings
 from django.conf.urls.static import static
-
+from votes import urls as votesUrls
 
 router = routers.DefaultRouter()
 router.register(r'api_places', PlaceViewSet)
@@ -43,11 +43,6 @@ urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')), #necesario para el password reset
 
     url(r'^', include(router.urls)),
-#    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api_login', LoginView.as_view(), name="api_login"),
-#    url(r'^api/reset-password', ResetPasswordView.as_view(), name="reset-password"),
-#    url(r'^api/sociallogin/login/facebook', FacebookLoginView.as_view(), name="facebook-login"),
-#    url(r'^api/sociallogin/signup/facebook', FacebookSignupView.as_view(), name="facebook-signup"),
-
-
+    url(r'^', include(votesUrls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
