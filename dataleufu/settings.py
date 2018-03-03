@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'rest_auth',
+    'votes',
     #registration
 
     'rest_auth.registration',
