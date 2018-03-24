@@ -24,7 +24,7 @@ class RelatedCategorySerializer(serializers.RelatedField):
 
     def to_representation(self, obj):
         return {
-            'id': obj.pk,
+            'pk': obj.pk,
             'name': obj.name
         }
 
