@@ -26,3 +26,4 @@ six==1.10.0
 social-auth-app-django==2.1.0
 social-auth-core==1.6.0
 urllib3==1.22
+easy-thumbnails==2.5
