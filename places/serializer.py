@@ -49,7 +49,7 @@ class PlaceImageSerializar(serializers.ModelSerializer):
     def to_representation(self, obj):
 
         ret =  super(serializers.ModelSerializer, self).to_representation(obj)
-        ret['image'] = serializers.URLField().to_representation(full_media_url(obj.get_image_url)),
+        ret['image'] = serializers.URLField().to_representation(full_media_url(obj.get_image_url))
         return ret
 
     def to_internal_value(self, data):
