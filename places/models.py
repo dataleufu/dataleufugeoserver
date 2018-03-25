@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.gis.db import models
 from dataleufu.models import UserProfile
 from votes.managers import VotableManager
+from easy_thumbnails.files import get_thumbnailer
+
 
 class Category(models.Model):
 
@@ -54,7 +56,7 @@ class PlaceImage(models.Model):
 
     @property
     def get_image_url(self):
-        return self.image.url
+        return get_thumbnailer(self.image)['default'].url
 
 class Layer(models.Model):
 
