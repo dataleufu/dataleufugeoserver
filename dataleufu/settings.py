@@ -83,9 +83,7 @@ INSTALLED_APPS = [
     #registration
 
     'rest_auth.registration',
-    #Social Authentication
-
-
+    'easy_thumbnails',
 
 ]
 REST_FRAMEWORK = {
@@ -276,6 +274,12 @@ REST_AUTH_SERIALIZERS = {
 
 }
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'default': {'size': (1024, 768), 'crop': False},
+        'avatar': {'size': (50, 50), 'crop': False},
+    },
+}
 
 #ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 # Look for local settings

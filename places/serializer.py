@@ -6,6 +6,8 @@ from django.core.files.base import ContentFile
 import base64
 from dataleufu.serializer import UserProfileSerializer
 from django.core.exceptions import ObjectDoesNotExist
+from easy_thumbnails.files import get_thumbnailer
+from django.conf import settings
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -45,7 +47,10 @@ class PlaceImageSerializar(serializers.ModelSerializer):
 
 
     def to_representation(self, obj):
-        return super(serializers.ModelSerializer, self).to_representation(obj)
+
+        ret =  super(serializers.ModelSerializer, self).to_representation(obj)
+        ret['image'] = serializers.URLField().to_representation(full_media_url(obj.get_image_url)),
+        return ret
 
     def to_internal_value(self, data):
         #TODO revisar si es necesario
@@ -106,3 +111,11 @@ class LayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Layer
         fields = ('pk', "name", "type", "category", "url", "color", "size", "visible")
+
+def full_media_url(url):
+    if url.startswith("//"):
+        return "http:" + url
+    elif url.startswith("http"):
+        return url
+    else:
+        return settings.ADMIN_URL + url
